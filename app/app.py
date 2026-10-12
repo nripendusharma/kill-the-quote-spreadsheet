@@ -773,6 +773,7 @@ def decide():
 
     sugg = ["Which vendors quoted all 30 lines, and what is missing from the others?",
             "How confident are we in Sri Lakshmi's prices?",
+            "What if we split it, cheapest per line, but only among vendors who cleared the quality questionnaire?",
             "Cap any single vendor at 60% of spend. What does that cost us?",
             "What happens to the award if the rupee weakens to 92 per dollar?",
             "Compare the split with giving everything to one vendor. Show a chart.",
