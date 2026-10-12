@@ -53,7 +53,7 @@ def build(rfx, last_year, extractions, attachments, assumptions, overrides=None)
             guessed = False
             if unit == "other" and q.get("likely_unit") not in (None, "other", "lump_sum"):
                 unit, guessed = q["likely_unit"], True
-                tags.append(f"Unit not stated ('{q['unit_text']}'); interpreted as {unit.replace('_', ' ')} - confirm with vendor")
+                tags.append(f"Unit not stated by vendor; interpreted as {unit.replace('_', ' ')} - confirm with vendor")
             if unit == "same_as_last_year":
                 ly = float(last_year[lid]["price_inr_per_pc_ex_gst"])
                 val = ly; status = "inferred"
