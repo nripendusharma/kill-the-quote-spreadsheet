@@ -35,13 +35,19 @@ try:
 except Exception:
     code = None
 if code and not st.session_state.get("authed"):
-    _, mid, _ = st.columns([1, 1.2, 1])
+    _, mid, _ = st.columns([1, 1.1, 1])
     with mid:
         st.space("large")
-        md("<div class='brand'>Quote Desk</div><div class='brand-sub'>Sign in to continue</div>")
-        if st.text_input("Passcode", type="password") == code:
-            st.session_state.authed = True
-            st.rerun()
+        st.image(str(Path(__file__).resolve().parent / "assets" / "logo.svg"), width=190)
+        md("<div class='muted' style='margin:6px 0 18px 0'>From RFx to a defensible award. "
+           "Sign in to the corrugated packaging sourcing event.</div>")
+        with st.form("signin", border=True):
+            pw = st.text_input("Passcode", type="password", placeholder="Enter the passcode from the email")
+            if st.form_submit_button("Continue", type="primary", width="stretch"):
+                if pw == code:
+                    st.session_state.authed = True
+                    st.rerun()
+                st.error("That passcode didn't match.")
     st.stop()
 
 # ------------------------------------------------------------------ state
