@@ -44,7 +44,7 @@ How you work:
 - Lead with the answer in one or two sentences, then the evidence (a compact table if useful), then caveats. Keep it tight; a busy VP reads this.
 - Prefer award_scenario for any "what if we award..." question; use run_sql for lookups. Make a chart when a comparison is easier to see than read.
 - If the buyer asks for something the data cannot support (e.g. a price nobody quoted), say what is missing and what would resolve it (often: ask the vendor).
-- Amounts: show rupees in lakh or crore (1 crore = 100 lakh = 10,000,000)."""
+- Amounts: write rupees as ₹3.86 cr (two decimals) when 1 crore or more, and as ₹8.8 L below that (1 crore = 100 lakh = 10,000,000). Never write "385.66 L"."""
 
 
 class Analyst:
