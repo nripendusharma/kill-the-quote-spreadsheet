@@ -1,0 +1,1607 @@
+{
+  "fx_usd_inr": 88.0,
+  "gst": 0.05,
+  "vendors": {
+    "A": {
+      "lines": {
+        "L25": {
+          "stated_price": 5609.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 56.09,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L26": {
+          "stated_price": 8780.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 87.8,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L13": {
+          "stated_price": 2844.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 28.44,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L14": {
+          "stated_price": 2845.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 28.45,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L15": {
+          "stated_price": 2512.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 25.12,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L16": {
+          "stated_price": 3636.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 36.36,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L17": {
+          "stated_price": 2617.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 26.17,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L18": {
+          "stated_price": 2666.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 26.66,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L19": {
+          "stated_price": 3895.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 38.95,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L20": {
+          "stated_price": 2979.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 29.79,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L21": {
+          "stated_price": 2126.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 21.26,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L22": {
+          "stated_price": 2752.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 27.52,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L23": {
+          "stated_price": 3302.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 33.02,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L24": {
+          "stated_price": 2141.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 21.41,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L01": {
+          "stated_price": 969.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 9.69,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L02": {
+          "stated_price": 1460.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 14.6,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L03": {
+          "stated_price": 754.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.54,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L04": {
+          "stated_price": 1161.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 11.61,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L05": {
+          "stated_price": 1067.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.67,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L06": {
+          "stated_price": 625.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.25,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L07": {
+          "stated_price": 822.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 8.22,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L08": {
+          "stated_price": 1049.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.49,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L09": {
+          "stated_price": 983.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 9.83,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L10": {
+          "stated_price": 660.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.6,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L11": {
+          "stated_price": 1192.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 11.92,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L12": {
+          "stated_price": 1066.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.66,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L27": {
+          "stated_price": 673.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.73,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L28": {
+          "stated_price": 736.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.36,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L29": {
+          "stated_price": 2188.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 21.88,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        },
+        "L30": {
+          "stated_price": 212.0,
+          "stated_unit": "per 100 pcs",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 2.12,
+          "expected_flags": [
+            "unit_converted"
+          ]
+        }
+      },
+      "format": "xlsx",
+      "terms": {
+        "delivery": "delivered Bidadi",
+        "gst": "extra 5%",
+        "payment_days": 60,
+        "validity": "15 days, subject to kraft price revision"
+      },
+      "vendor_flags": [
+        "price_escalation_clause",
+        "short_validity"
+      ]
+    },
+    "B": {
+      "lines": {
+        "L01": {
+          "stated_price": 0.118,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.38,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L02": {
+          "stated_price": 0.17,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 14.96,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L03": {
+          "stated_price": 0.09,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.92,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L04": {
+          "stated_price": 0.137,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 12.06,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L05": {
+          "stated_price": 0.129,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 11.35,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L06": {
+          "stated_price": 0.073,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.42,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L07": {
+          "stated_price": 0.098,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 8.62,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L08": {
+          "stated_price": 0.117,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.3,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L09": {
+          "stated_price": 0.116,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.21,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L10": {
+          "stated_price": 0.08,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.04,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L11": {
+          "stated_price": 0.146,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 12.85,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L12": {
+          "stated_price": 0.122,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.74,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L13": {
+          "stated_price": 0.348,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 30.62,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L14": {
+          "stated_price": 0.349,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 30.71,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L15": {
+          "stated_price": 0.301,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 26.49,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L16": {
+          "stated_price": 0.424,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 37.31,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L17": {
+          "stated_price": 0.314,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 27.63,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L18": {
+          "stated_price": 0.291,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 25.61,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L19": {
+          "stated_price": 0.437,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 38.46,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L20": {
+          "stated_price": 0.345,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 30.36,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L21": {
+          "stated_price": 0.249,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 21.91,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L22": {
+          "stated_price": 0.316,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 27.81,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L23": {
+          "stated_price": 0.401,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 35.29,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L24": {
+          "stated_price": 0.26,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 22.88,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L25": {
+          "stated_price": 0.663,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 58.34,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L26": {
+          "stated_price": 1.066,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 93.81,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L27": {
+          "stated_price": 0.08,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.04,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L28": {
+          "stated_price": 0.083,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.3,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L29": {
+          "stated_price": 0.249,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 21.91,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        },
+        "L30": {
+          "stated_price": 0.024,
+          "stated_unit": "per pc",
+          "currency": "USD",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 2.11,
+          "expected_flags": [
+            "currency_converted"
+          ]
+        }
+      },
+      "format": "pdf",
+      "stated_total_usd": 457995.0,
+      "true_total_usd": 456815.0,
+      "terms": {
+        "delivery": "FOR Bidadi",
+        "gst": "extra",
+        "payment_days": 45,
+        "validity": "30 days"
+      },
+      "conditional_discount": {
+        "pct": 2.5,
+        "condition": "annual PO value with vendor > INR 1.5 crore AND payment within 45 days"
+      },
+      "vendor_flags": [
+        "usd_quote",
+        "footnote_discount_conditional",
+        "total_does_not_reconcile",
+        "iso_certificate_expired",
+        "payment_terms_deviation_45_vs_60"
+      ]
+    },
+    "C": {
+      "lines": {
+        "L01": {
+          "stated_price": 9.7,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 9.7,
+          "expected_flags": []
+        },
+        "L02": {
+          "stated_price": 14.5,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 14.5,
+          "expected_flags": []
+        },
+        "L03": {
+          "stated_price": 7.31,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.31,
+          "expected_flags": []
+        },
+        "L04": {
+          "stated_price": 11.78,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 11.78,
+          "expected_flags": []
+        },
+        "L05": {
+          "stated_price": 10.54,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.54,
+          "expected_flags": []
+        },
+        "L06": {
+          "stated_price": 5.86,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 5.86,
+          "expected_flags": []
+        },
+        "L07": {
+          "stated_price": 7.95,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.95,
+          "expected_flags": []
+        },
+        "L08": {
+          "stated_price": 10.0,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.0,
+          "expected_flags": []
+        },
+        "L10": {
+          "stated_price": 6.6,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.6,
+          "expected_flags": []
+        },
+        "L11": {
+          "stated_price": 11.85,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 11.85,
+          "expected_flags": []
+        },
+        "L12": {
+          "stated_price": 10.47,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.47,
+          "expected_flags": []
+        },
+        "L13": {
+          "stated_price": 27.54,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 27.54,
+          "expected_flags": []
+        },
+        "L14": {
+          "stated_price": 27.76,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 27.76,
+          "expected_flags": []
+        },
+        "L15": {
+          "stated_price": 25.23,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 25.23,
+          "expected_flags": []
+        },
+        "L16": {
+          "stated_price": 34.94,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 34.94,
+          "expected_flags": []
+        },
+        "L17": {
+          "stated_price": 25.59,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 25.59,
+          "expected_flags": []
+        },
+        "L18": {
+          "stated_price": 24.22,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 24.22,
+          "expected_flags": []
+        },
+        "L19": {
+          "stated_price": 37.68,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 37.68,
+          "expected_flags": []
+        },
+        "L20": {
+          "stated_price": 28.93,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 28.93,
+          "expected_flags": []
+        },
+        "L21": {
+          "stated_price": 20.44,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 20.44,
+          "expected_flags": []
+        },
+        "L22": {
+          "stated_price": 26.34,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 26.34,
+          "expected_flags": []
+        },
+        "L24": {
+          "stated_price": 20.77,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 20.77,
+          "expected_flags": []
+        },
+        "L25": {
+          "stated_price": 54.98,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 54.98,
+          "expected_flags": []
+        },
+        "L26": {
+          "stated_price": 85.04,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 85.04,
+          "expected_flags": []
+        },
+        "L27": {
+          "stated_price": 6.76,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.76,
+          "expected_flags": []
+        },
+        "L28": {
+          "stated_price": 6.95,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.95,
+          "expected_flags": []
+        },
+        "L30": {
+          "stated_price": 1.97,
+          "stated_unit": "per box",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 1.97,
+          "expected_flags": []
+        }
+      },
+      "format": "docx",
+      "lines_quoted": 27,
+      "missing": [
+        "L09",
+        "L23",
+        "L29"
+      ],
+      "alternate_offer": {
+        "line": "L14",
+        "price": 25.82,
+        "deviation": "120 GSM top liner vs 180 specified"
+      },
+      "terms": {
+        "delivery": "delivered Bidadi",
+        "gst": "extra 5%",
+        "payment_days": "30 preferred, 60 negotiable",
+        "validity": "3 months"
+      },
+      "vendor_flags": [
+        "missing_lines",
+        "spec_deviation_alternate",
+        "questionnaire_fail_iso",
+        "questionnaire_fail_tests",
+        "questionnaire_fail_capacity",
+        "questionnaire_fail_lead_time"
+      ]
+    },
+    "D": {
+      "lines": {
+        "L01": {
+          "stated_price": 10.9,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 10.38,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L02": {
+          "stated_price": 15.77,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 15.02,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L03": {
+          "stated_price": 8.21,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 7.82,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L04": {
+          "stated_price": 12.32,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 11.73,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L05": {
+          "stated_price": 10.95,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 10.43,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L06": {
+          "stated_price": 6.59,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 6.28,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L07": {
+          "stated_price": 8.59,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 8.18,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L08": {
+          "stated_price": 10.48,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 9.98,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L09": {
+          "stated_price": 10.36,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 9.87,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L10": {
+          "stated_price": 6.89,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 6.56,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L11": {
+          "stated_price": 12.46,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 11.87,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L12": {
+          "stated_price": 11.16,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 10.63,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L13": {
+          "stated_price": 29.99,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 28.56,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L14": {
+          "stated_price": 30.93,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 29.46,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L15": {
+          "stated_price": 27.2,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 25.9,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L16": {
+          "stated_price": 38.44,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 36.61,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L17": {
+          "stated_price": 29.26,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 27.87,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L18": {
+          "stated_price": 27.42,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 26.11,
+          "expected_flags": [
+            "handwritten_correction",
+            "gst_inclusive"
+          ]
+        },
+        "L19": {
+          "stated_price": 42.21,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 40.2,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L20": {
+          "stated_price": 32.66,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 31.1,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L21": {
+          "stated_price": 22.91,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 21.82,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L22": {
+          "stated_price": 27.45,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 26.14,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L23": {
+          "stated_price": 35.29,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 33.61,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L24": {
+          "stated_price": 22.18,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 21.12,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L27": {
+          "stated_price": 7.01,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 6.68,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L28": {
+          "stated_price": 7.59,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 7.23,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L29": {
+          "stated_price": 22.07,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 21.02,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        },
+        "L30": {
+          "stated_price": 2.26,
+          "stated_unit": "per pc",
+          "currency": "INR",
+          "gst_inclusive": true,
+          "normalised_inr_per_pc_ex_gst": 2.15,
+          "expected_flags": [
+            "gst_inclusive",
+            "from_photo"
+          ]
+        }
+      },
+      "handwritten": {
+        "line": "L18",
+        "printed": 25.77,
+        "corrected_to": 27.42
+      },
+      "format": "jpg photo",
+      "lines_quoted": 28,
+      "missing": [
+        "L25",
+        "L26"
+      ],
+      "terms": {
+        "delivery": "free door delivery Bidadi",
+        "gst": "INCLUSIVE 5%",
+        "payment_days": 30,
+        "validity": "1 month"
+      },
+      "vendor_flags": [
+        "gst_inclusive",
+        "photo_angled",
+        "handwritten_correction",
+        "no_7ply",
+        "capacity_60t"
+      ]
+    },
+    "E": {
+      "lines": {
+        "L01": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.23,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L02": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 15.21,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L03": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.83,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L04": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 12.24,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L05": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 11.12,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L06": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.36,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L07": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 8.67,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L08": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.33,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L09": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 9.97,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L10": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.97,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L11": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 12.6,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L12": {
+          "stated_price": 38.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 10.94,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L13": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 30.4,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L14": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 30.59,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L15": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 26.87,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L16": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 37.76,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L17": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 27.99,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L18": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 26.65,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L19": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 40.07,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L20": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 31.02,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L21": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 22.43,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L22": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 28.55,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L23": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 34.7,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L24": {
+          "stated_price": 42.0,
+          "stated_unit": "per kg",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 22.55,
+          "expected_flags": [
+            "per_kg_derived",
+            "freight_extra"
+          ]
+        },
+        "L25": {
+          "stated_price": 58.22,
+          "stated_unit": "same as last year",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 58.22,
+          "expected_flags": [
+            "inferred_from_last_year",
+            "freight_extra"
+          ]
+        },
+        "L26": {
+          "stated_price": 89.68,
+          "stated_unit": "same as last year",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 89.68,
+          "expected_flags": [
+            "inferred_from_last_year",
+            "freight_extra"
+          ]
+        },
+        "L27": {
+          "stated_price": 6.84,
+          "stated_unit": "AMBIGUOUS: 3-ply per-kg rate or last year",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 6.84,
+          "expected_flags": [
+            "ambiguous_scope",
+            "inferred_from_last_year",
+            "freight_extra"
+          ],
+          "alt_if_per_kg": 7.02
+        },
+        "L28": {
+          "stated_price": 7.18,
+          "stated_unit": "AMBIGUOUS: 3-ply per-kg rate or last year",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 7.18,
+          "expected_flags": [
+            "ambiguous_scope",
+            "inferred_from_last_year",
+            "freight_extra"
+          ],
+          "alt_if_per_kg": 7.37
+        },
+        "L29": {
+          "stated_price": 21.05,
+          "stated_unit": "AMBIGUOUS: 3-ply per-kg rate or last year",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 21.05,
+          "expected_flags": [
+            "ambiguous_scope",
+            "inferred_from_last_year",
+            "freight_extra"
+          ],
+          "alt_if_per_kg": 21.61
+        },
+        "L30": {
+          "stated_price": 2.05,
+          "stated_unit": "AMBIGUOUS: 3-ply per-kg rate or last year",
+          "currency": "INR",
+          "gst_inclusive": false,
+          "normalised_inr_per_pc_ex_gst": 2.05,
+          "expected_flags": [
+            "ambiguous_scope",
+            "inferred_from_last_year",
+            "freight_extra"
+          ],
+          "alt_if_per_kg": 2.11
+        }
+      },
+      "format": "email text",
+      "incumbent": true,
+      "terms": {
+        "delivery": "freight EXTRA (last year: delivered)",
+        "gst": "not stated, assume extra",
+        "payment_days": "not stated (last year 60)",
+        "validity": "not stated"
+      },
+      "vendor_flags": [
+        "per_kg_pricing",
+        "rest_same_as_last_year",
+        "freight_extra",
+        "questionnaire_not_answered",
+        "partition_pad_scope_ambiguous"
+      ]
+    }
+  },
+  "attachments": {
+    "A": [
+      "A_ISO9001_certificate.pdf",
+      "A_BCT_test_report.pdf"
+    ],
+    "B": [
+      "B_ISO9001_certificate.pdf (EXPIRED 2026-03-31)",
+      "B_test_report.pdf"
+    ],
+    "C": [],
+    "D": [
+      "D_ISO9001_certificate.pdf",
+      "D_BCT_test_report.pdf"
+    ],
+    "E": []
+  },
+  "questionnaire_outcome": {
+    "A": "pass",
+    "B": "issue: ISO certificate expired 2026-03-31; payment 45 days vs 60",
+    "C": "fail: no ISO, no test reports, capacity 35t < 50t, lead time 12d > 10d",
+    "D": "pass (note: capacity 60t/month limits share of award)",
+    "E": "unknown: not answered"
+  }
+}
