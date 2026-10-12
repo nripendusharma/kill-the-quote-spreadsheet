@@ -58,6 +58,6 @@ CLARIFY_SCHEMA = {"type": "object", "additionalProperties": False, "required": [
 def clarification_email(rfx, vendor_name, issues):
     prompt = (f"Write a short, polite clarification email from {rfx['buyer']['person']} at {rfx['buyer']['company']} to {vendor_name} "
               f"about their reply to {rfx['id']}. Ask every question below in one email, numbered, specific enough that the vendor "
-              f"can answer in one reply. Plain text, no em-dashes, under 200 words.\n\nOpen issues:\n" + "\n".join(f"- {i}" for i in issues))
+              f"can answer in one reply. Group related lines into one question where the same issue repeats (e.g. one unit question covering many lines). Plain text, no em-dashes, under 250 words.\n\nOpen issues:\n" + "\n".join(f"- {i}" for i in issues))
     out, _ = llm.structured([{"role": "user", "content": prompt}], CLARIFY_SCHEMA, effort="low", max_tokens=4000)
     return out

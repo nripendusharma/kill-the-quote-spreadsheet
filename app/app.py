@@ -2,6 +2,10 @@
 import io
 import json
 import shutil
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import pandas as pd
 import streamlit as st
@@ -330,7 +334,7 @@ elif page == "4 · Review queue":
     items = [c for c in comp["cells"].values() if c["status"] in ("review", "inferred")]
     st.caption(f"{len(items)} prices are held out of any award until a person looks. Confirm, correct, or ask the vendor. "
                "Every action is logged.")
-    for v in sorted({c["vendor"] for c in items}):
+    for v in sorted({c["vendor"] for c in items} | {v_ for v_, x in comp["vendors"].items() if x["qualification"]["status"] != "pass"}):
         vi = [c for c in items if c["vendor"] == v]
         st.subheader(f"{v} · {comp['vendors'][v]['name']}  ({len(vi)})")
         for c in vi:
@@ -350,7 +354,12 @@ elif page == "4 · Review queue":
                     ss.setdefault("asks", {}).setdefault(v, []).append(
                         f"Line {c['line']}: please confirm your price. We read '{q.get('evidence_quote', '')}'. Issue: {'; '.join(c['reasons']) or 'not restated'}")
                     log(f"Queued clarification for {v}/{c['line']}.")
-        issues = ss.get("asks", {}).get(v, []) + [f"Questionnaire {r_}" for r_ in comp["vendors"][v]["qualification"]["reasons"]]
+        auto = []
+        for c in vi:
+            q = c["q"] or {}
+            auto.append(f"Line {c['line']} ({next(l['description'] for l in rfx['lines'] if l['id'] == c['line'])}): "
+                        f"we read '{q.get('evidence_quote', '')}'. Open point: {'; '.join(c['reasons'][:2]) or 'price not restated, we assumed last year'}")
+        issues = list(dict.fromkeys(ss.get("asks", {}).get(v, []) + auto)) +                  [f"Questionnaire {r_}" for r_ in comp["vendors"][v]["qualification"]["reasons"]]
         if comp["vendors"][v]["freight_extra"]:
             issues.append("Freight: how is it charged (per trip, per kg, % of value) to the Bidadi plant?")
         if st.button(f"Draft one clarification email to {v} covering everything open", key=f"mail{v}"):
