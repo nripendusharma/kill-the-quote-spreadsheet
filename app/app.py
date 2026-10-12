@@ -376,7 +376,7 @@ elif page == "5 · Ask the data":
                       overrides=overrides_tuple())
     if "analyst" not in ss:
         ss.analyst = analyst_mod.Analyst(comp, rfx, ly, build_args)
-    ss.analyst.set_comp(comp); ss.analyst.build_args = build_args
+    ss.analyst.build_args = build_args; ss.analyst.set_comp(comp)
     sugg = ["Which vendors quoted all 30 lines, and what is missing from the others?",
             "How confident are we in Sri Lakshmi's prices?",
             "What if we split it, cheapest per line, but only among vendors who cleared the quality questionnaire?",

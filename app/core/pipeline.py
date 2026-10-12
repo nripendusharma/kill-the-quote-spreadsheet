@@ -30,6 +30,9 @@ def run_vendor(rfx, v, cache, files=None, email=None, atts=None, label=None):
     if files is None:
         files, email, atts = demo_files(v)
     t0 = time.time()
+    if atts:
+        note = "Attachments received with this reply (the system verifies them separately): " + ", ".join(n for n, _ in atts)
+        email = f"{email}\n\n{note}" if email else note
     ex, usage = extract.extract_vendor(rfx, label or rfx["vendors"].get(v, {}).get("name", v), files, email)
     att_out = [extract.extract_attachment(n, d) for n, d in (atts or [])]
     cache["extractions"][v] = ex

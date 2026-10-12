@@ -6,7 +6,10 @@ TOL = 0.01  # 1% on the normalised price
 
 def score(comp, key):
     rows = []
+    read = {v for (v, _) in comp["cells"]}
     for v, info in key["vendors"].items():
+        if v not in read:
+            continue
         truth = info["lines"]
         for lid, t in truth.items():
             c = comp["cells"].get((v, lid))

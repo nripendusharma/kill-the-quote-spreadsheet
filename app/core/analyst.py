@@ -56,7 +56,8 @@ class Analyst:
 
     def set_comp(self, comp):
         self.comp = comp
-        self.con = store.connect(store.frames(comp, self.rfx, self.ly))
+        atts = getattr(self, "build_args", {}).get("attachments")
+        self.con = store.connect(store.frames(comp, self.rfx, self.ly, atts))
 
     def _comp_with(self, fx=None, freight=None):
         if fx is None and freight is None:

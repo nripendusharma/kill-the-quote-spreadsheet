@@ -3,7 +3,7 @@ import duckdb
 import pandas as pd
 
 
-def frames(comp, rfx, last_year):
+def frames(comp, rfx, last_year, attachments=None):
     lines = pd.DataFrame([dict(line_id=l["id"], description=l["description"], kind=l["kind"], ply=l["ply"], flute=l["flute"],
                                size=l["size"], annual_qty=l["annual_qty"], weight_kg=l["weight_kg"],
                                last_year_price=float(last_year[l["id"]]["price_inr_per_pc_ex_gst"]))
@@ -28,7 +28,11 @@ def frames(comp, rfx, last_year):
     q = pd.DataFrame([dict(vendor=v, qid=qid, verdict=d["verdict"], note=d["note"])
                       for v, x in vinfo.items() for qid, d in x["qualification"]["detail"].items()])
     alts = pd.DataFrame(comp["alternates"]) if comp["alternates"] else pd.DataFrame(columns=["vendor", "rfx_line_id"])
-    return dict(lines=lines, quotes=quotes, vendors=vendors, questionnaire=q, alternate_offers=alts)
+    att = pd.DataFrame([dict(vendor=v, file=a.get("file"), doc_type=a.get("doc_type"), valid_until=a.get("valid_until"),
+                             result=a.get("result"), key_facts=a.get("key_facts"))
+                        for v, lst in (attachments or {}).items() for a in lst],
+                       columns=["vendor", "file", "doc_type", "valid_until", "result", "key_facts"])
+    return dict(lines=lines, quotes=quotes, vendors=vendors, questionnaire=q, alternate_offers=alts, attachments=att)
 
 
 SCHEMA_DOC = """Tables (DuckDB SQL):
@@ -38,7 +42,8 @@ SCHEMA_DOC = """Tables (DuckDB SQL):
     landed = price + assumed freight where the vendor said freight extra. annual_value_inr uses landed price x annual_qty.
 - vendors(vendor, name, qualification ['pass','fail','unverified'], qualification_issues, capacity_t_month, freight_extra,
           payment_days, lead_time_days, validity, price_escalation, discounts, lines_quoted, flags)
-- questionnaire(vendor, qid, verdict, note)   -- must-pass questions only
+- questionnaire(vendor, qid, verdict, note)   -- must-pass questions only; Q1/Q2 verdicts are decided from the attachments actually received
+- attachments(vendor, file, doc_type, valid_until, result, key_facts)   -- certificates and test reports received, as read by the system
 - alternate_offers(vendor, rfx_line_id, price_value, price_unit, currency, deviation, evidence_quote)"""
 
 

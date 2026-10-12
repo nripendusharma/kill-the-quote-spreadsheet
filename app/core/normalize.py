@@ -50,6 +50,10 @@ def build(rfx, last_year, extractions, attachments, assumptions, overrides=None)
             tags, reasons = [], []
             val, unit, cur = q["price_value"], q["price_unit"], q["currency"]
             status = "verified"
+            guessed = False
+            if unit == "other" and q.get("likely_unit") not in (None, "other", "lump_sum"):
+                unit, guessed = q["likely_unit"], True
+                tags.append(f"Unit not stated ('{q['unit_text']}'); interpreted as {unit.replace('_', ' ')} - confirm with vendor")
             if unit == "same_as_last_year":
                 ly = float(last_year[lid]["price_inr_per_pc_ex_gst"])
                 val = ly; status = "inferred"
@@ -73,6 +77,8 @@ def build(rfx, last_year, extractions, attachments, assumptions, overrides=None)
                 if val is not None and q["gst_inclusive"] is True:
                     val = val / (1 + gst); tags.append(f"GST {gst*100:.0f}% removed (vendor quoted inclusive)")
                     status = "converted" if status == "verified" else status
+            if guessed:
+                status = "review"; reasons.append("Unit was not stated by the vendor; value shown uses the most plausible reading.")
             if q["extraction_confidence"] < TRUST:
                 status = "review"; reasons.append(f"Reading confidence {q['extraction_confidence']:.2f}")
             if q["match_confidence"] < TRUST:
@@ -141,14 +147,19 @@ def qualify(rfx, ex, atts):
             continue
         a = answers.get(q["id"])
         verdict = a["meets_requirement"] if a else "not_answered"
-        note = a["answer"] if a else "No answer"
-        if q["id"] == "Q1" and verdict == "yes":
-            if not iso:
+        note = (a["answer"] or "Not answered") if a else "Not answered"
+        # Q1/Q2 are decided by what was actually attached, not by the vendor's claim or the reader's guess
+        if q["id"] == "Q1":
+            if iso:
+                valid = [c for c in iso if (c.get("valid_until") or "9999") >= TODAY]
+                verdict, note = ("yes", f"Valid certificate attached (until {valid[0].get('valid_until')})") if valid else                                 ("no", f"Attached ISO certificate EXPIRED on {iso[0].get('valid_until')}")
+            elif verdict == "yes":
                 verdict, note = "unclear", "Claims ISO 9001 but no certificate was attached"
-            elif all((c.get("valid_until") or "9999") < TODAY for c in iso):
-                verdict, note = "no", f"Attached ISO certificate EXPIRED on {iso[0]['valid_until']}"
-        if q["id"] == "Q2" and verdict == "yes" and not tests:
-            verdict, note = "unclear", "Says reports are available but none attached"
+        if q["id"] == "Q2":
+            if tests:
+                verdict, note = "yes", "Test report attached"
+            elif verdict == "yes":
+                verdict, note = "unclear", "Says reports are available but none attached"
         result[q["id"]] = dict(verdict=verdict, note=note)
         if verdict != "yes":
             reasons.append(f"{q['id']}: {note}")
