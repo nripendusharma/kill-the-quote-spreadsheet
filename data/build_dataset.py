@@ -372,7 +372,7 @@ key["vendors"]["D"].update(format="jpg photo", lines_quoted=28, missing=sorted(D
                            terms=dict(delivery="free door delivery Bidadi", gst="INCLUSIVE 5%", payment_days=30, validity="1 month"),
                            vendor_flags=["gst_inclusive", "photo_angled", "handwritten_correction", "no_7ply", "capacity_60t"])
 (VR / "D_SriLakshmi_email.txt").write_text(
-    "From: Sri Lakshmi Carton Works <srilakshmicartons@gmail.com>\nTo: ananya.rao@halasuru-cp.example\nDate: Tue, 7 Oct 2026 19:42\n"
+    "From: Sri Lakshmi Carton Works <enquiry@srilakshmicartons.example>\nTo: ananya.rao@halasuru-cp.example\nDate: Tue, 7 Oct 2026 19:42\n"
     "Subject: RE: RFQ-PKG-2026-014 rates\n\nMadam,\nPFA our rate card photo. Typed sheet will take time, printer not working.\n"
     "Questionnaire: ISO 9001 yes cert attached. BCT test report attached. Capacity 60 ton/month. Lead time 7 days. "
     "Peenya to Bidadi 40 km. Kraft from local mills. MSME yes. Payment 30 days pls. Customers - 2 local FMCG + 1 pharma.\n\n"

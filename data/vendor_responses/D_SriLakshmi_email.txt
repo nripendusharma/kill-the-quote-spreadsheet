@@ -1,4 +1,4 @@
-From: Sri Lakshmi Carton Works <srilakshmicartons@gmail.com>
+From: Sri Lakshmi Carton Works <enquiry@srilakshmicartons.example>
 To: ananya.rao@halasuru-cp.example
 Date: Tue, 7 Oct 2026 19:42
 Subject: RE: RFQ-PKG-2026-014 rates
