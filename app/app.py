@@ -190,6 +190,28 @@ def howto(page):
         st.markdown("\n".join(f"{i}. {t}" for i, t in enumerate(GUIDE[page], 1)))
 
 
+@st.dialog("Reset the demo?")
+def reset_dialog():
+    st.markdown("This puts the whole demo back to its starting point:")
+    st.markdown("- Vendor replies go back to the original five, as first read by the AI\n"
+                "- Your confirmed and corrected prices are cleared (back to **0 of 22** resolved)\n"
+                "- Emails, counter-offers, the award recommendation and the analyst chat are cleared\n"
+                "- Assumptions go back to ₹88/$, 3% freight, 5% GST\n"
+                "- The audit trail starts empty")
+    st.caption("You stay signed in. This can't be undone.")
+    c1, c2 = st.columns(2)
+    if c1.button("Yes, reset everything", type="primary", icon=":material/restart_alt:", width="stretch"):
+        if SEED.exists():
+            shutil.copy(SEED, pipeline.CACHE)
+        for k in list(ss.keys()):
+            if k not in ("authed", "seen_guide"):  # stay signed in; don't replay the welcome
+                del ss[k]
+        ss.reset_done = ss.reset_toast = True
+        st.switch_page(P["overview"])
+    if c2.button("Cancel", width="stretch"):
+        st.rerun()
+
+
 @st.dialog("Welcome to Quote Desk", width="large")
 def welcome_dialog():
     st.markdown("You are **Ananya Rao**, a packaging buyer. Five vendors have replied to your RFQ for 30 corrugated box types "
@@ -230,6 +252,9 @@ def overview():
     st.title("Corrugated packaging, FY 2026-27", anchor=False)
     md(f"<div class='sub'>Annual rate contract for the Bidadi plant. 30 lines across 3, 5 and 7-ply boxes, partitions and pads. "
        f"Five vendors replied, each in their own format. Last year this basket cost <b>{inr(ly_total())}</b>.</div>")
+    if ss.pop("reset_done", False):
+        st.success("Demo reset. Replies are back to the original five, 0 of 22 prices resolved, and the emails, "
+                   "recommendation, chat and audit trail are cleared.", icon=":material/restart_alt:")
     howto("overview")
 
     best = optimizer.award(comp, rfx, ly, qualified_only=True) if comp else None
@@ -1125,19 +1150,15 @@ with st.sidebar:
         a["freight_pct_if_extra"] = st.number_input("Freight % when 'extra'", value=float(a["freight_pct_if_extra"]), step=0.5)
         a["gst_pct"] = st.number_input("GST % on inclusive quotes", value=float(a["gst_pct"]), step=1.0)
     show_guide = st.button("How to use", icon=":material/help:", width="stretch")
-    with st.popover("Reset demo", icon=":material/restart_alt:", width="stretch"):
-        st.caption("Restores the original replies and clears your decisions, emails and chat.")
-        if st.button("Reset everything", type="primary"):
-            if SEED.exists():
-                shutil.copy(SEED, pipeline.CACHE)
-            for k in list(ss.keys()):
-                if k not in ("authed", "seen_guide"):  # stay signed in; don't replay the welcome
-                    del ss[k]
-            st.rerun()
+    show_reset = st.button("Reset demo", icon=":material/restart_alt:", width="stretch")
     md("<div class='who'><div class='av'>AR</div><div><div class='nm'>Ananya Rao</div><div class='rl'>Category Buyer, Packaging</div></div></div>")
 
 comp = build_comp()  # assumptions may have changed in the sidebar
-if show_guide or not ss.get("seen_guide"):
+if show_reset:
+    reset_dialog()
+elif show_guide or not ss.get("seen_guide"):
     ss.seen_guide = True  # set before opening, so closing with the X doesn't bring it back
     welcome_dialog()
+if ss.pop("reset_toast", False):
+    st.toast("Demo reset. Everything is back to the start.", icon=":material/restart_alt:")
 nav.run()
