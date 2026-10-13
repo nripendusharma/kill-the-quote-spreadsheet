@@ -136,6 +136,76 @@ def next_link(page, label):
     r.page_link(page, label=label, icon=":material/arrow_forward:", width="stretch")
 
 
+# ------------------------------------------------------------------ first-time guidance
+GUIDE = {
+    "overview": [
+        "This is your home page. The five-step bar shows where the sourcing event stands: **Done**, **Now** or still to come.",
+        "The blue box always names the **one next thing to do**. Click **Open** to go straight there.",
+        "The vendor cards summarise each reply. The left menu runs in the order of the job, and every page has a **Next** button at the bottom.",
+    ],
+    "draft": [
+        "Click the example request (or type your own) and wait about 20 seconds. The RFx builds in the **Live draft** panel on the right.",
+        "Answer the yellow **Before sending** questions in the chat, or carry on with the proposed defaults.",
+        "Click **Review and send**, tick the vendors to invite, then **Send**. Sending is simulated.",
+        "The **Issued** tab shows the RFQ that actually went out. The replies in Responses answer that one.",
+    ],
+    "responses": [
+        "Click a vendor on the left to open its reply.",
+        "**What they sent** is the original file. **What the AI read** lists every price with the exact words it read and a confidence bar. **Certificates** shows whether each attached document is still valid.",
+        "**Add a reply** (blue button) uploads any quote, in any format. The AI reads it live in about a minute and it joins the comparison.",
+    ],
+    "compare": [
+        "Every cell is the price in **₹ per piece, ex-GST**. Colour shows how far to trust it (legend above the grid). ★ marks the cheapest trusted price on each line.",
+        "**Click any price** to see where it came from in the **Trace a price** panel below the grid. If clicking is fiddly, use the panel's two drop-downs.",
+        "Use the controls at the top to switch **Landed / As quoted** or filter by ply. Vendor cards and qualification are further down.",
+    ],
+    "resolve": [
+        "Each tab is a vendor. Each card is a price the system will not use until you decide.",
+        "**Confirm** accepts the value in the box (type a new value first to correct it). **Ask vendor** opens an email with that one question already drafted.",
+        "**Draft email** at the bottom writes one email covering every open point for that vendor. Anything you did can be undone under **Resolved**.",
+    ],
+    "decide": [
+        "The three option cards are computed instantly from trusted prices. **Recommend this** records your choice; **Details** shows the award line by line.",
+        "**Ask the analyst**: click a suggested question or type your own. Answers take 30 to 90 seconds; open each step to see the query or scenario behind a number.",
+        "Change the exchange rate, freight or GST under **Assumptions** in the sidebar and everything recalculates.",
+    ],
+    "accuracy": [
+        "The data is fictional, so the right answer for every cell is known. This page compares what the AI read against it.",
+        "**Wrong and trusted** is the number that matters most. It should be zero: hard cases are held for review, not guessed.",
+    ],
+    "audit": [
+        "Every action in this session is time-stamped here: confirmations, emails, questions, the recommendation.",
+        "**Download audit trail (CSV)** for the award file.",
+    ],
+}
+
+
+def howto(page):
+    with st.expander("How to use this page", icon=":material/help:"):
+        st.markdown("\n".join(f"{i}. {t}" for i, t in enumerate(GUIDE[page], 1)))
+
+
+@st.dialog("Welcome to Quote Desk", width="large")
+def welcome_dialog():
+    st.markdown("You are **Ananya Rao**, a packaging buyer. Five vendors have replied to your RFQ for 30 corrugated box types "
+                "(about ₹4 crore a year), each in a different, messy format. Your job: get to an award you can defend to your VP.")
+    st.markdown("**The job, in five steps** (the left menu follows this order)")
+    st.markdown("1. **Draft RFx**: a co-pilot writes the request for quotation with you.\n"
+                "2. **Responses**: see every reply exactly as it arrived, and what the AI read from it.\n"
+                "3. **Compare**: all prices on one basis. Click any price to see its source.\n"
+                "4. **Resolve**: decide on the prices the system is unsure of, or ask the vendor.\n"
+                "5. **Decide**: compare award options and ask the analyst questions in plain English.")
+    st.markdown("**Good to know**")
+    st.markdown("- Colours show how far each price can be trusted. Doubtful prices are kept out of every award until you confirm them.\n"
+                "- Not sure what to do? The blue box on **Overview** always names the next step, and every page has a "
+                "**How to use this page** panel at the top.\n"
+                "- AI reading and answers are live, so some take up to a minute. Emails to vendors are simulated.\n"
+                "- Nothing here is permanent. **Reset demo** in the sidebar puts everything back.")
+    if st.button("Get started", type="primary", width="stretch"):
+        st.rerun()
+    st.caption("You can reopen this from **How to use** in the sidebar.")
+
+
 comp = build_comp()
 
 
@@ -155,6 +225,7 @@ def overview():
     st.title("Corrugated packaging, FY 2026-27", anchor=False)
     md(f"<div class='sub'>Annual rate contract for the Bidadi plant. 30 lines across 3, 5 and 7-ply boxes, partitions and pads. "
        f"Five vendors replied, each in their own format. Last year this basket cost <b>{inr(ly_total())}</b>.</div>")
+    howto("overview")
 
     best = optimizer.award(comp, rfx, ly, qualified_only=True) if comp else None
     priced = sum(1 for c in comp["cells"].values() if c["status"] != "not_quoted") if comp else 0
@@ -217,6 +288,7 @@ def overview():
 def draft():
     ui.header("Step 1 · Draft", "Draft the RFx",
               "Describe what you need in plain words. The co-pilot keeps a complete, sendable RFx up to date and asks only what blocks sending.")
+    howto("draft")
     t1, t2 = st.tabs(["New RFx with co-pilot", f"Issued · {rfx['id']}"])
     cp = ss.copilot
     with t1:
@@ -348,6 +420,7 @@ def upload_dialog():
 def responses():
     ui.header("Step 2 · Collect", "Responses",
               "Every reply exactly as it arrived, next to what the AI read from it. Nobody re-typed anything.")
+    howto("responses")
     vendors = sorted(set(DEMO_INBOX) | set(ss.cache["extractions"]))
     def caption(v):
         ex = ss.cache["extractions"].get(v)
@@ -458,6 +531,7 @@ def responses():
 def compare():
     ui.header("Step 3 · Compare", "One comparison, like for like",
               "Same 30 lines, per piece, rupees, ex-GST. Click any price to see the exact words it came from and every conversion applied.")
+    howto("compare")
     if need_data():
         return
     vinfo = comp["vendors"]
@@ -638,6 +712,7 @@ def ask_dialog(v, c):
 def resolve():
     ui.header("Step 4 · Resolve", "Review queue",
               "These prices are held out of every award until you look. Confirm the value, correct it, or ask the vendor in one email.")
+    howto("resolve")
     if need_data():
         return
     items = open_items(comp)
@@ -779,6 +854,7 @@ def scenario_view(r, key):
 def decide():
     ui.header("Step 5 · Decide", "Decide the award",
               "Three award options computed by code from trusted prices only. Then ask the analyst anything, in plain words.")
+    howto("decide")
     if need_data():
         return
     items = open_items(comp)
@@ -898,6 +974,7 @@ def accuracy():
     ui.header("Assurance", "How accurate is the reader?",
               "The test data was built by hand, so the right answer for every cell is known. This scores the current read "
               "and checks that the review queue catches what the AI gets wrong. Your edits are excluded.")
+    howto("accuracy")
     if need_data():
         return
     clean = normalize.build(rfx, ly, ss.cache["extractions"], ss.cache["attachments"], rfx["assumptions"], {})
@@ -927,6 +1004,7 @@ def accuracy():
 
 def audit():
     ui.header("Assurance", "Audit trail", "Everything decided in this session, in order. This is what goes in the award file.")
+    howto("audit")
     if ss.award_choice:
         st.success(f"Recommendation: **{ss.award_choice}**", icon=":material/gavel:")
     if not ss.log:
@@ -969,15 +1047,20 @@ with st.sidebar:
         a["fx_usd_inr"] = st.number_input("USD to INR", value=float(a["fx_usd_inr"]), step=0.5)
         a["freight_pct_if_extra"] = st.number_input("Freight % when 'extra'", value=float(a["freight_pct_if_extra"]), step=0.5)
         a["gst_pct"] = st.number_input("GST % on inclusive quotes", value=float(a["gst_pct"]), step=1.0)
+    show_guide = st.button("How to use", icon=":material/help:", width="stretch")
     with st.popover("Reset demo", icon=":material/restart_alt:", width="stretch"):
         st.caption("Restores the original replies and clears your decisions, emails and chat.")
         if st.button("Reset everything", type="primary"):
             if SEED.exists():
                 shutil.copy(SEED, pipeline.CACHE)
             for k in list(ss.keys()):
-                del ss[k]
+                if k not in ("authed", "seen_guide"):  # stay signed in; don't replay the welcome
+                    del ss[k]
             st.rerun()
     md("<div class='who'><div class='av'>AR</div><div><div class='nm'>Ananya Rao</div><div class='rl'>Category Buyer, Packaging</div></div></div>")
 
 comp = build_comp()  # assumptions may have changed in the sidebar
+if show_guide or not ss.get("seen_guide"):
+    ss.seen_guide = True  # set before opening, so closing with the X doesn't bring it back
+    welcome_dialog()
 nav.run()
