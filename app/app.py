@@ -286,12 +286,28 @@ def draft():
 @st.dialog("Send the RFx")
 def send_dialog(d):
     st.markdown(f"**{d['title']}**")
-    pool = d.get("vendors_to_invite") or [x["name"] for x in rfx["vendors"].values()]
-    picked = [v for v in pool if st.checkbox(v, value=True, key=f"inv{v}")]
+    # Approved vendors for the category always appear; co-pilot suggestions and buyer additions join them.
+    master = [f"{x['name']} ({x['city']})" for x in rfx["vendors"].values()]
+    known = " ".join(master).lower()
+    suggested = [v for v in d.get("vendors_to_invite") or [] if v.strip() and v.split()[0].lower() not in known]
+    ss.setdefault("extra_invites", [])
+    st.markdown("**Approved packaging vendors**")
+    picked = [v for v in master if st.checkbox(v, value=True, key=f"inv{v}")]
+    if suggested or ss.extra_invites:
+        st.markdown("**Suggested by the co-pilot or added by you**")
+        picked += [v for v in suggested + ss.extra_invites if st.checkbox(v, value=True, key=f"inv{v}")]
+    def add_invite():
+        new = ss.get("new_invite", "").strip()
+        if new and new not in ss.extra_invites:
+            ss.extra_invites.append(new)
+        ss.new_invite = ""
+    c1, c2 = st.columns([3, 1], vertical_alignment="bottom")
+    c1.text_input("Invite another vendor", placeholder="e.g. Mysore Packaging, Mysuru", key="new_invite")
+    c2.button("Add", width="stretch", on_click=add_invite)
     st.caption(f"Each vendor gets the RFx and the template. They can reply in any format. Due date: {d['terms'].get('response_due', 'as stated')}.")
     if st.button(f"Send to {len(picked)} vendors", type="primary", disabled=not picked, width="stretch"):
         ss.issued_draft = True
-        log(f"Issued draft RFx \"{d['title']}\" to {len(picked)} vendors (email simulated in this prototype).")
+        log(f"Issued draft RFx \"{d['title']}\" to {len(picked)} vendors: {'; '.join(picked)} (email simulated in this prototype).")
         st.rerun()
 
 
