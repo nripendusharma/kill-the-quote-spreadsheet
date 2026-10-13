@@ -1,6 +1,7 @@
 """Kill the Quote Spreadsheet - RFx to defensible award, with the AI loops real and the uncertainty visible."""
 import io
 import json
+import re
 import shutil
 import sys
 from datetime import datetime
@@ -28,6 +29,10 @@ GRID = {"A": "Hosur", "B": "Pacific", "C": "Kaveri", "D": "Sri Lakshmi", "E": "D
 SHORT = {"A": "Hosur Corrutech", "B": "Pacific Fibre", "C": "Kaveri Kraft", "D": "Sri Lakshmi", "E": "Deccan Corrugators"}
 FORMAT = {"A": "Excel, own layout, per 100 pcs", "B": "PDF in USD", "C": "Word letter", "D": "Phone photo of rate card",
           "E": "Two-line email (incumbent)"}
+# Fictional addresses for the simulated mail window (reserved .example domain, nothing is delivered).
+BUYER_EMAIL = "ananya.rao@halasuru-cp.example"
+VENDOR_EMAIL = {"A": "sales@hosurcorrutech.example", "B": "quotes@pacificfibre.example", "C": "orders@kaverikraft.example",
+                "D": "enquiry@srilakshmicartons.example", "E": "venkatesh@deccancorrugators.example"}
 
 # ------------------------------------------------------------------ access
 try:
@@ -57,6 +62,7 @@ if "cache" not in ss:
     ss.overrides, ss.log, ss.chat = {}, [], []
     ss.copilot = dict(history=[], draft=None, open=[])
     ss.asks, ss.mails, ss.sent = {}, {}, {}
+    ss.ask_drafts, ss.ask_sent = {}, {}
     ss.assumptions = None
     ss.award_choice = None
     ss.issued_draft = False
@@ -581,6 +587,54 @@ def compare():
     e2.page_link(P["resolve"], label="Next: Resolve", icon=":material/arrow_forward:", width="stretch")
 
 
+def issue_text(c):
+    q = c["q"] or {}
+    return (f"Line {c['line']} ({LINES[c['line']]['description']}): we read '{q.get('evidence_quote', '')}'. "
+            f"Open point: {'; '.join(c['reasons'][:2]) or 'price not restated, we assumed last year'}")
+
+
+def vendor_email(v, name):
+    return VENDOR_EMAIL.get(v) or "sales@" + (re.sub(r"[^a-z0-9]+", "", name.lower())[:24] or "vendor") + ".example"
+
+
+@st.dialog("Ask the vendor", width="large")
+def ask_dialog(v, c):
+    x = comp["vendors"][v]
+    key = f"{v}|{c['line']}"
+    drafts = ss.setdefault("ask_drafts", {})
+    if key not in drafts:
+        with st.spinner("Drafting the question..."):
+            try:
+                drafts[key] = copilot.clarification_email(rfx, x["name"], [issue_text(c)])
+            except LLMError as e:
+                st.error(str(e))
+                return
+    m = drafts[key]
+    md(f"<div class='muted small'>From: {esc(rfx['buyer']['person'])} &lt;{BUYER_EMAIL}&gt;</div>")
+    to = st.text_input("To", vendor_email(v, x["name"]), key=f"ato{key}")
+    st.text_input("Cc", "", key=f"acc{key}", placeholder="optional")
+    sub = st.text_input("Subject", m["subject"], key=f"asub{key}")
+    st.text_area("Message", m["body"], height=280, key=f"abody{key}")
+    st.caption("Drafted by the AI from this line's open point. Sending is simulated in this prototype; "
+               "the vendor's answer comes back through Responses → Add a reply.")
+    s1, s2, s3 = st.columns([1, 1.5, 1])
+    if s1.button("Send", type="primary", icon=":material/send:", width="stretch"):
+        ss.setdefault("ask_sent", {})[key] = dict(time=datetime.now().strftime("%H:%M"), to=to, subject=sub)
+        log(f"Asked {short(v)} about {c['line']} by email to {to} (simulated): \"{sub}\"")
+        st.rerun()
+    if s2.button("Add to combined email instead", width="stretch"):
+        asked = ss.asks.setdefault(v, [])
+        if c["line"] not in asked:
+            asked.append(c["line"])
+        log(f"Added {short(v)} {c['line']} to the clarification email.")
+        st.rerun()
+    if s3.button("Redraft", icon=":material/refresh:", width="stretch"):
+        drafts.pop(key, None)
+        for k in (f"asub{key}", f"abody{key}"):
+            ss.pop(k, None)
+        st.rerun(scope="fragment")
+
+
 def resolve():
     ui.header("Step 4 · Resolve", "Review queue",
               "These prices are held out of every award until you look. Confirm the value, correct it, or ask the vendor in one email.")
@@ -618,11 +672,14 @@ def resolve():
                         st.rerun()
             for c in vi:
                 q = c["q"] or {}
+                sent = ss.setdefault("ask_sent", {}).get(f"{v}|{c['line']}")
+                sent_tag = ui.tag("Asked " + sent["time"], "#E7F5EC", "#1E7A44") if sent else ""
                 with st.container(border=True):
                     a, b = st.columns([2.2, 1], gap="large")
                     with a:
                         md(f"<b>{c['line']} · {esc(LINES[c['line']]['description'])}</b> &nbsp;{ui.pill(c['status'])}"
-                           + (f" {ui.tag('In email', '#E9F0FD', '#1F4FB8')}" if c["line"] in asked else ""))
+                           + (f" {ui.tag('In email', '#E9F0FD', '#1F4FB8')}" if c["line"] in asked else "")
+                           + (f" {sent_tag}" if sent else ""))
                         if q.get("evidence_quote"):
                             md(f"<div class='quote'>“{esc(q['evidence_quote'])}”</div>")
                         why = c["reasons"] + [t for t in c["tags"] if "last year" in t or "interpreted" in t]
@@ -640,18 +697,15 @@ def resolve():
                         if c["line"] in asked:
                             if b2.button("Remove", key=f"un{v}{c['line']}", width="stretch"):
                                 asked.remove(c["line"]); st.rerun()
-                        elif b2.button("Ask vendor", key=f"ask{v}{c['line']}", width="stretch"):
-                            asked.append(c["line"])
-                            log(f"Added {short(v)} {c['line']} to the clarification email.")
-                            st.rerun()
+                        elif b2.button("Ask again" if sent else "Ask vendor", key=f"ask{v}{c['line']}", width="stretch",
+                                       icon=":material/mail:"):
+                            ask_dialog(v, c)
 
             # ---- one email per vendor
             ask_cells = [c for c in vi if c["line"] in asked] or vi
             issues = []
             for c in ask_cells:
-                q = c["q"] or {}
-                issues.append(f"Line {c['line']} ({LINES[c['line']]['description']}): we read '{q.get('evidence_quote', '')}'. "
-                              f"Open point: {'; '.join(c['reasons'][:2]) or 'price not restated, we assumed last year'}")
+                issues.append(issue_text(c))
             issues += [f"Questionnaire {r_}" for r_ in x["qualification"]["reasons"]]
             if x["freight_extra"]:
                 issues.append("Freight: how is it charged (per trip, per kg, % of value) to the Bidadi plant?")
@@ -674,6 +728,7 @@ def resolve():
                             st.error(str(e))
                 m = ss.mails.get(v)
                 if m:
+                    md(f"<div class='muted small'>From: {BUYER_EMAIL} &nbsp;·&nbsp; To: {vendor_email(v, x['name'])}</div>")
                     st.text_input("Subject", m["subject"], key=f"sub{v}")
                     st.text_area("Message", m["body"], height=260, key=f"body{v}")
                     if ss.sent.get(v):
