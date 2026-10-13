@@ -15,7 +15,7 @@ import streamlit as st
 
 import ui
 from core import analyst as analyst_mod
-from core import copilot, normalize, optimizer, pipeline, scorecard
+from core import copilot, negotiation, normalize, optimizer, pipeline, scorecard
 from core.data import DEMO_INBOX, INBOX, STATE, load_answer_key, load_last_year, load_rfx
 from core.ingest import docx_to_text
 from core.llm import LLMError
@@ -166,6 +166,8 @@ GUIDE = {
     ],
     "decide": [
         "The three option cards are computed instantly from trusted prices. **Recommend this** records your choice; **Details** shows the award line by line.",
+        "**Negotiation brief** turns the chosen award into targets per vendor: price asks on lines they win (the saving), second-source lines and term asks. "
+        "**Draft counter-offer** writes the email; you review it before **Send**.",
         "**Ask the analyst**: click a suggested question or type your own. Answers take 30 to 90 seconds; open each step to see the query or scenario behind a number.",
         "Change the exchange rate, freight or GST under **Assumptions** in the sidebar and everything recalculates.",
     ],
@@ -709,6 +711,37 @@ def ask_dialog(v, c):
         st.rerun(scope="fragment")
 
 
+@st.dialog("Counter-offer", width="large")
+def nego_dialog(v, b):
+    drafts = ss.setdefault("nego_drafts", {})
+    sig = (v, tuple((a["line"], a["target"]) for a in b["savings_asks"]), tuple(b["term_asks"]))
+    if drafts.get(v, {}).get("sig") != sig:
+        with st.spinner("Drafting the counter-offer..."):
+            try:
+                drafts[v] = dict(sig=sig, **negotiation.counter_offer(rfx, b))
+            except LLMError as e:
+                st.error(str(e))
+                return
+        for k in (f"nsub{v}", f"nbody{v}"):
+            ss.pop(k, None)
+    m = drafts[v]
+    md(f"<div class='muted small'>From: {esc(rfx['buyer']['person'])} &lt;{BUYER_EMAIL}&gt;</div>")
+    to = st.text_input("To", vendor_email(v, b["name"]), key=f"nto{v}")
+    sub = st.text_input("Subject", m["subject"], key=f"nsub{v}")
+    st.text_area("Message", m["body"], height=320, key=f"nbody{v}")
+    st.caption("Every number in this message comes from the brief: targets are computed by code, not by the model. "
+               "Sending is simulated in this prototype.")
+    s1, s2 = st.columns([1, 1])
+    if s1.button("Send", type="primary", icon=":material/send:", width="stretch"):
+        ss.setdefault("nego_sent", {})[v] = dict(time=datetime.now().strftime("%H:%M"), to=to)
+        log(f"Sent a counter-offer to {short(v)} at {to} (simulated): {len(b['savings_asks'])} price asks, "
+            f"{len(b['term_asks'])} term asks, saving if met {inr(b['saving_if_met'])}.", kind="decision")
+        st.rerun()
+    if s2.button("Redraft", icon=":material/refresh:", width="stretch"):
+        drafts.pop(v, None)
+        st.rerun(scope="fragment")
+
+
 def resolve():
     ui.header("Step 4 · Resolve", "Review queue",
               "These prices are held out of every award until you look. Confirm the value, correct it, or ask the vendor in one email.")
@@ -902,6 +935,47 @@ def decide():
                 st.rerun()
             with st.expander("Details"):
                 scenario_view(r, k)
+
+    # ---- handoff to negotiation: the award engine already knows every vendor's gap to target
+    base_title, base = next(((t, r) for _, t, _, r in options if t == ss.award_choice), (options[0][1], options[0][3]))
+    nb = negotiation.brief(comp, rfx, ly, base)
+    st.space("medium")
+    st.subheader("Negotiation brief", anchor=False)
+    st.caption(f"Built from **{base_title}**. Code sets every target and ask; the AI only writes the message, "
+               "and nothing goes to a vendor until you press Send.")
+    if nb:
+        ntabs = st.tabs([f"{short(v)} · {len(b['savings_asks'])} price asks" for v, b in nb.items()])
+        for tab, (v, b) in zip(ntabs, nb.items()):
+            with tab:
+                m1, m2, m3 = st.columns(3)
+                m1.metric("Lines placed with them", len(b["lines_won"]), help="Lines this vendor wins in the award above", border=True)
+                m2.metric("Saving if every target is met", inr(b["saving_if_met"]) if b["saving_if_met"] else "–",
+                          help="Price minus target, times annual quantity, on lines they win", border=True)
+                m3.metric("Second-source lines", len(b["second_source_asks"]),
+                          help="Lines they lost; matching the winning price makes them a backup supplier", border=True)
+                cols = {"line": "Line", "description": "Item", "price": "Their ₹/pc", "target": "Target ₹/pc",
+                        "gap_pct": "Gap %", "annual_gap": "₹ / yr", "why": "Why this target"}
+                if b["savings_asks"]:
+                    st.markdown("**Price asks on lines they win** (this is the saving)")
+                    st.dataframe(pd.DataFrame(b["savings_asks"])[list(cols)].rename(columns=cols), hide_index=True, width="stretch")
+                if b["second_source_asks"]:
+                    with st.expander(f"Second-source lines ({len(b['second_source_asks'])}): match the winning price to be the backup"):
+                        st.dataframe(pd.DataFrame(b["second_source_asks"])[list(cols)].rename(columns=cols).drop(columns=["Why this target"]),
+                                     hide_index=True, width="stretch")
+                if b["term_asks"]:
+                    st.markdown("**Term asks**")
+                    st.markdown("\n".join(f"- {t}" for t in b["term_asks"]))
+                if b["capacity_note"]:
+                    st.caption(f"Capacity: {b['capacity_note']}")
+                sent = ss.setdefault("nego_sent", {}).get(v)
+                if sent:
+                    st.success(f"Counter-offer sent to {sent['to']} at {sent['time']} (simulated). Their revised quote comes back "
+                               "through Responses → Add a reply.", icon=":material/mark_email_read:")
+                if st.button("Draft counter-offer" if not sent else "Draft again", key=f"nego{v}", icon=":material/mail:",
+                             type="primary" if not sent else "secondary"):
+                    nego_dialog(v, b)
+    else:
+        st.info("No qualified vendor in this award, so there is nothing to negotiate yet.", icon=":material/info:")
 
     st.space("medium")
     h1, h2 = st.columns([4, 1], vertical_alignment="bottom")
