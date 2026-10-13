@@ -46,6 +46,8 @@ if code and not st.session_state.get("authed"):
         st.image(str(Path(__file__).resolve().parent / "assets" / "logo.svg"), width=190)
         md("<div class='muted' style='margin:6px 0 18px 0'>From RFx to a defensible award. "
            "Sign in to the corrugated packaging sourcing event.</div>")
+        # Streamlit's in-field "Press Enter to submit form" hint collides with the show-password eye; say it below instead.
+        md("<style>[data-testid='stForm'] [data-testid='InputInstructions']{display:none}</style>")
         with st.form("signin", border=True):
             pw = st.text_input("Passcode", type="password", placeholder="Enter the passcode from the email")
             if st.form_submit_button("Continue", type="primary", width="stretch"):
@@ -53,6 +55,7 @@ if code and not st.session_state.get("authed"):
                     st.session_state.authed = True
                     st.rerun()
                 st.error("That passcode didn't match.")
+            st.caption("Press Enter or click Continue.")
     st.stop()
 
 # ------------------------------------------------------------------ state
