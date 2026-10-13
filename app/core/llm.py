@@ -3,7 +3,7 @@ import json
 import os
 import anthropic
 
-MODEL = "claude-opus-5-5"
+MODEL = "claude-sonnet-5-5"  # half the per-token price of Opus 5.5; stored demo readings were made with claude-opus-5-5
 _client = None
 
 

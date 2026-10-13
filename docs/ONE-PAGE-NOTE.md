@@ -24,4 +24,4 @@ The brief prices the pain at three days of retyping. But "nine days" is mostly t
 
 Share of cells auto-trusted; reading accuracy by format (photo vs PDF vs prose); buyer override rate (a rising rate means the reader is drifting); clarification rounds per RFx; days from last reply to award.
 
-*Built with Claude Code. Model: Claude Opus 5.5. All companies, people and prices are fictional.*
+*Built with Claude Code. Live model: Claude Sonnet 5.5 (the stored demo readings and both accuracy runs were made with Claude Opus 5.5). All companies, people and prices are fictional.*
