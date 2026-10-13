@@ -70,6 +70,9 @@ h3 { font-weight: 620 !important; letter-spacing: -0.01em; }
 .event { border:1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--card); margin-top: 10px; }
 .event .id { font-size:0.72rem; color: var(--muted); font-weight:600; letter-spacing:0.04em; }
 .event .tt { font-size:0.86rem; font-weight:600; line-height:1.3; margin-top:2px; }
+[data-testid="stSpinnerIcon"] { border-color: rgba(61,79,224,0.18) !important; border-top-color: var(--accent) !important; }
+[data-testid="stSpinner"] p { color: #3F4166; }
+.mailhead { color: var(--muted); font-size: 0.84rem; line-height: 1.6; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 10px; }
 .foot { color: var(--muted); font-size: 0.76rem; margin-top: 2.4rem; border-top: 1px solid var(--line); padding-top: 0.8rem; }
 @media (max-width: 900px) { .steps, .how { grid-template-columns: 1fr; } }
 </style>
@@ -86,6 +89,15 @@ def inject():
 
 def md(s):
     st.markdown(s, unsafe_allow_html=True)
+
+
+def loading(what, eta):
+    """One loader style for every AI wait: what is happening, how long it usually takes, and a running timer."""
+    return st.spinner(f"{what} · {eta}", show_time=True)
+
+
+def mailhead(sender, to):
+    md(f"<div class='mailhead'>From: {esc(sender)}<br>To: {esc(to)}</div>")
 
 
 def pill(status, text=None):

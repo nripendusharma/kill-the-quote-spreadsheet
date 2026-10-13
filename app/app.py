@@ -325,8 +325,9 @@ def draft():
         left, right = st.columns([1, 1.25], gap="large")
         with left:
             chat = st.container(height=520, border=True)
+            busy = bool(ss.get("cp_in") or ss.get("cp_pending"))  # a message is being sent this run
             with chat:
-                if not cp["history"]:
+                if not cp["history"] and not busy:
                     md("<div class='muted'>Start with what you know. For example:</div>")
                     if st.button("We need an annual rate contract for corrugated boxes for the Bidadi plant, about 30 sizes, 3, 5 and 7 ply. "
                                  "Last year's supplier was Deccan Corrugators.", icon=":material/lightbulb:", key="starter"):
@@ -335,23 +336,28 @@ def draft():
                         st.rerun()
                 for role, text in cp["history"]:
                     st.chat_message(role, avatar=":material/person:" if role == "user" else ":material/auto_awesome:").write(text)
+                if ss.get("cp_error"):
+                    st.error(ss.pop("cp_error"), icon=":material/error:")
             msg = st.chat_input("Describe what you need to buy", key="cp_in") or ss.pop("cp_pending", None)
             if msg:
-                with st.spinner("Updating the draft..."):
-                    try:
-                        out = copilot.turn(cp["history"], json.dumps(cp["draft"]) if cp["draft"] else None, msg)
-                        cp["history"] += [("user", msg), ("assistant", out["reply"])]
-                        cp["draft"], cp["open"] = out["draft"], out["open_questions"]
-                        log(f"Co-pilot updated the draft RFx: \"{msg[:80]}\"")
-                    except LLMError as e:
-                        st.error(str(e))
+                with chat:  # the wait shows inside the conversation, as the co-pilot's reply
+                    st.chat_message("user", avatar=":material/person:").write(msg)
+                    with st.chat_message("assistant", avatar=":material/auto_awesome:"):
+                        with ui.loading("Updating the draft", "usually 15 to 30 seconds"):
+                            try:
+                                out = copilot.turn(cp["history"], json.dumps(cp["draft"]) if cp["draft"] else None, msg)
+                                cp["history"] += [("user", msg), ("assistant", out["reply"])]
+                                cp["draft"], cp["open"] = out["draft"], out["open_questions"]
+                                log(f"Co-pilot updated the draft RFx: \"{msg[:80]}\"")
+                            except LLMError as e:
+                                ss.cp_error = str(e)
                 st.rerun()
             if cp["history"] and st.button("Start over", icon=":material/restart_alt:", type="tertiary"):
                 ss.copilot = dict(history=[], draft=None, open=[])
                 st.rerun()
         with right:
             d = cp["draft"]
-            with st.container(border=True, height=560):
+            with st.container(border=True, height=594):  # chat panel (520) + its input row, so both columns end level
                 if not d:
                     md("<div class='eyebrow'>Live draft</div>")
                     md("<div class='muted'>The RFx builds here as you talk: lines, a must-pass questionnaire and commercial terms.</div>")
@@ -434,7 +440,7 @@ def upload_dialog():
         email = body.strip() or None
         if email and not files:
             files, email = [("email.txt", email.encode())], None
-        with st.spinner("Reading the reply. This takes about a minute."):
+        with ui.loading(f"Reading {vname or 'the reply'} with AI", "about a minute"):
             try:
                 pipeline.run_vendor(rfx, target, ss.cache, files=files, email=email,
                                     atts=[(u.name, u.getvalue()) for u in (atts or [])], label=vname or f"Vendor {target}")
@@ -470,15 +476,20 @@ def responses():
         with st.popover("Re-read all", icon=":material/refresh:", width="stretch"):
             st.caption("Sends all five original replies to the model again, live. Takes 3 to 5 minutes.")
             if st.button("Re-read all five now", type="primary"):
-                prog = st.progress(0.0, text="Reading...")
+                prog, failed = st.progress(0.0), 0
                 for i, v in enumerate(DEMO_INBOX):
+                    prog.progress(i / len(DEMO_INBOX), text=f"Reading {short(v)} ({i + 1} of {len(DEMO_INBOX)}) · about a minute each")
                     try:
                         pipeline.run_vendor(rfx, v, ss.cache)
                         log(f"Re-read {short(v)} live.")
                     except LLMError as e:
-                        st.error(f"{v}: {e}")
-                    prog.progress((i + 1) / len(DEMO_INBOX), text=f"Read {short(v)}")
-                st.rerun()
+                        failed += 1
+                        st.error(f"{short(v)}: {e}")
+                if failed:  # keep the errors on screen instead of rerunning them away
+                    prog.progress(1.0, text=f"Finished with {failed} error{'s' if failed != 1 else ''}")
+                else:
+                    prog.progress(1.0, text="All five read")
+                    st.rerun()
     v = sel
     ex = ss.cache["extractions"].get(v)
     meta = ss.cache["meta"].get(v, {})
@@ -489,13 +500,16 @@ def responses():
         h1.subheader(name, anchor=False)
         h1.caption(" · ".join(x for x in [city, "incumbent" if v == rfx["incumbent"] else "", FORMAT.get(v, "")] if x))
         if v in DEMO_INBOX and h2.button("Re-read with AI", icon=":material/auto_awesome:", key=f"run{v}", width="stretch"):
-            with st.spinner("Reading the original files. About a minute."):
+            with ui.loading(f"Reading {short(v)}'s original files with AI", "about a minute"):
                 try:
                     pipeline.run_vendor(rfx, v, ss.cache)
                     log(f"Re-read {short(v)} live.")
+                    ok = True
                 except LLMError as e:
                     st.error(str(e))
-            st.rerun()
+                    ok = False
+            if ok:
+                st.rerun()
         tabs = st.tabs(["What they sent", "What the AI read", "Certificates"])
         with tabs[0]:
             spec = DEMO_INBOX.get(v, {})
@@ -707,12 +721,17 @@ def ask_dialog(v, c):
     key = f"{v}|{c['line']}"
     drafts = ss.setdefault("ask_drafts", {})
     if key not in drafts:
-        with st.spinner("Drafting the question..."):
-            try:
-                drafts[key] = copilot.clarification_email(rfx, x["name"], [issue_text(c)])
-            except LLMError as e:
-                st.error(str(e))
-                return
+        wait = st.empty()  # the window opens as an email straight away; the draft fills in when ready
+        with wait.container():
+            ui.mailhead(f"{rfx['buyer']['person']} <{BUYER_EMAIL}>", vendor_email(v, x["name"]))
+            md(f"<div class='muted'>About: {esc(c['line'])} · {esc(LINES[c['line']]['description'])}</div>")
+            with ui.loading("Drafting the question", "usually 10 to 20 seconds"):
+                try:
+                    drafts[key] = copilot.clarification_email(rfx, x["name"], [issue_text(c)])
+                except LLMError as e:
+                    st.error(str(e))
+                    return
+        wait.empty()
     m = drafts[key]
     md(f"<div class='muted small'>From: {esc(rfx['buyer']['person'])} &lt;{BUYER_EMAIL}&gt;</div>")
     to = st.text_input("To", vendor_email(v, x["name"]), key=f"ato{key}")
@@ -744,12 +763,18 @@ def nego_dialog(v, b):
     drafts = ss.setdefault("nego_drafts", {})
     sig = (v, tuple((a["line"], a["target"]) for a in b["savings_asks"]), tuple(b["term_asks"]))
     if drafts.get(v, {}).get("sig") != sig:
-        with st.spinner("Drafting the counter-offer..."):
-            try:
-                drafts[v] = dict(sig=sig, **negotiation.counter_offer(rfx, b))
-            except LLMError as e:
-                st.error(str(e))
-                return
+        wait = st.empty()
+        with wait.container():
+            ui.mailhead(f"{rfx['buyer']['person']} <{BUYER_EMAIL}>", vendor_email(v, b["name"]))
+            md(f"<div class='muted'>{len(b['savings_asks'])} price asks · {len(b['term_asks'])} term asks · "
+               f"saving if met {inr(b['saving_if_met'])}</div>")
+            with ui.loading("Drafting the counter-offer from the brief", "usually 10 to 20 seconds"):
+                try:
+                    drafts[v] = dict(sig=sig, **negotiation.counter_offer(rfx, b))
+                except LLMError as e:
+                    st.error(str(e))
+                    return
+        wait.empty()
         for k in (f"nsub{v}", f"nbody{v}"):
             ss.pop(k, None)
     m = drafts[v]
@@ -855,7 +880,7 @@ def resolve():
                 e1.caption("Covers " + ", ".join(s_ for s_ in scope if s_) + "."
                            + ("" if any(c["line"] in asked for c in vi) or not vi else " No prices marked, so it asks about every open one."))
                 if e2.button("Draft email", key=f"mail{v}", icon=":material/edit:", width="stretch", disabled=not issues):
-                    with st.spinner("Drafting..."):
+                    with ui.loading(f"Drafting one email to {short(v)} covering {len(issues)} points", "usually 10 to 20 seconds"):
                         try:
                             ss.mails[v] = copilot.clarification_email(rfx, x["name"], issues)
                             ss.sent.pop(v, None)
@@ -974,7 +999,7 @@ def decide():
     if nb:
         ntabs = st.tabs([f"{short(v)} · {len(b['savings_asks'])} price asks" for v, b in nb.items()])
         for tab, (v, b) in zip(ntabs, nb.items()):
-            with tab:
+            with tab, st.container(border=True):
                 m1, m2, m3 = st.columns(3)
                 m1.metric("Lines placed with them", len(b["lines_won"]), help="Lines this vendor wins in the award above", border=True)
                 m2.metric("Saving if every target is met", inr(b["saving_if_met"]) if b["saving_if_met"] else "–",
@@ -1058,13 +1083,14 @@ def decide():
         with st.chat_message("user", avatar=":material/person:"):
             st.markdown(q)
         with st.chat_message("assistant", avatar=":material/insights:"):
-            steps = st.status("Working through the data...", expanded=False)
+            # Steps stay visible while it works (that is the progress), then fold away under the answer.
+            steps = st.status("Working through the data · usually 30 to 90 seconds", expanded=True)
             try:
                 ans, arts = ss.analyst.ask(q, on_step=lambda s_: steps.write(s_))
-                steps.update(label=f"Done · {len(arts)} step{'s' if len(arts) != 1 else ''}", state="complete")
+                steps.update(label=f"Done · {len(arts)} step{'s' if len(arts) != 1 else ''}", state="complete", expanded=False)
             except LLMError as e:
                 ans, arts = f"Something went wrong: {e}", []
-                steps.update(label="Failed", state="error")
+                steps.update(label="Failed", state="error", expanded=False)
             st.markdown(ans)
             render(arts, len(ss.chat) + 1)
         ss.chat += [("user", q, []), ("assistant", ans, arts)]
